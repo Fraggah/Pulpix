@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://njnniqxhbnx6"]
+
+[ext_resource type="Script" uid="uid://bqc7xwvxeed5l" path="res://UI/game_ui.gd" id="1_kfjql"]
+[ext_resource type="FontFile" uid="uid://ou1sy1wbg1p" path="res://sprites/font_score.ttf" id="1_mp46i"]
+[ext_resource type="Texture2D" uid="uid://q3k8y3kixvn1" path="res://sprites/Sprite-0007.png" id="3_h0rig"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kfjql"]
+font = ExtResource("1_mp46i")
+font_size = 22
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h0rig"]
+font = ExtResource("1_mp46i")
+font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2oifk"]
+font = ExtResource("1_mp46i")
+font_size = 12
+
+[node name="gameUI" type="CanvasLayer"]
+script = ExtResource("1_kfjql")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.537255)
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_kfjql")
+
+[node name="gameOver" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gameOver"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label2" type="Label" parent="gameOver/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_h0rig")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="gameOver/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_h0rig")
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="gameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_h0rig")
+
+[node name="Label" type="Label" parent="gameOver/VBoxContainer/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -6.5
+offset_right = 24.0
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+label_settings = SubResource("LabelSettings_2oifk")
+
+[connection signal="pressed" from="gameOver/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]

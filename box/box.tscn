@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://p3yfvo7u4tfx"]
+
+[ext_resource type="Texture2D" uid="uid://b1k4mgkg5gnib" path="res://sprites/Sprite-0005.png" id="1_e5lxm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e5lxm"]
+friction = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w67pf"]
+size = Vector2(16, 16)
+
+[node name="box" type="RigidBody2D"]
+mass = 1.059
+physics_material_override = SubResource("PhysicsMaterial_e5lxm")
+gravity_scale = 0.0
+lock_rotation = true
+freeze_mode = 1
+linear_damp = 5.0
+angular_damp = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e5lxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w67pf")

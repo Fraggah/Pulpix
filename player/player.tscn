@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=3 uid="uid://d4mmfsjite1gy"]
+
+[ext_resource type="Script" uid="uid://6tt8mobw32rn" path="res://player/player.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dqmbmfw1k76jq" path="res://bullet/bullet.tscn" id="2_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://dc5lk1fn0m58n" path="res://sprites/Sprite-0001-sheet.png" id="2_rkbax"]
+[ext_resource type="Texture2D" uid="uid://gjka1qy0xd2d" path="res://sprites/Sprite-0003.png" id="3_yw30f"]
+[ext_resource type="Texture2D" uid="uid://ne4ffbuaiata" path="res://sprites/Sprite-0004.png" id="4_qjkh3"]
+[ext_resource type="AudioStream" uid="uid://bkit8qnov2o1r" path="res://sounds/shoot.mp3" id="6_g6k8r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6k8r"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_g6k8r"]
+resource_name = "player"
+length = 0.9
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_rkbax"), ExtResource("3_yw30f"), ExtResource("4_qjkh3")]
+}
+
+[sub_resource type="Animation" id="Animation_boad6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rkbax")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yw30f"]
+resource_name = "shoot"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rgyib"]
+_data = {
+&"RESET": SubResource("Animation_boad6"),
+&"player": SubResource("Animation_g6k8r"),
+&"shoot": SubResource("Animation_yw30f")
+}
+
+[node name="player" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.698132
+script = ExtResource("1")
+bullet_scene = ExtResource("2_qjkh3")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkbax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g6k8r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rgyib")
+}
+autoplay = "player"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_g6k8r")
+bus = &"SFX"
